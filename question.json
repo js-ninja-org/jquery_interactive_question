@@ -37,7 +37,7 @@
         },
 
         {
-            "question": "What Zone you are deploying ?",
+            "question": "What Zone you are deploying to ?",
             "rank": "1",
             "id": "zone",
             "choice": [
@@ -99,7 +99,7 @@
                     "score": "5"
                 },
                 {
-                    "answer": "Internal Domain Only",
+                    "answer": "Internal Domain Only Or I am  UI",
                     "next": "usage",
                     "score": "1"
                 }
@@ -207,7 +207,7 @@
             "choice": [
                 {
                     "answer": "Yes.",
-                    "next": "rampup",
+                    "next": "",
                     "score": "1"
                 },
                 {

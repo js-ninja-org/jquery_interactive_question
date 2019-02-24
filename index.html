@@ -19,7 +19,7 @@
 
             function runEffect() {
 
-				
+
 
                 // get effect type from
                 var selectedEffect = "explode";
@@ -42,142 +42,117 @@
 
 
 
-        
-		
-		// Callback function to bring a hidden box back
-		function callback() {
-		setTimeout(function() {
-			$( "#effect" ).removeAttr( "style" ).hide().fadeIn();
-		}, 1000 );
-		};
-
-        $( "#button" ).on( "click", function() {
-
-			
-			let selectLiValue = $('#selectable  li.ui-selected');
-
-            
-
-            let nextQuestion = (selectLiValue.attr("li-value"));
-
-            let selectedScore  = (selectLiValue.attr("li-score"));
 
 
-            console.log(" next question id "+ nextQuestion + " score for current "+selectedScore)
+            // Callback function to bring a hidden box back
+            function callback() {
+                setTimeout(function () {
+                    $("#effect").removeAttr("style").hide().fadeIn();
+                }, 1000);
+            };
 
-			runEffect();
-			
-			// $("#question").text("Hello world!");
+            $("#button").on("click", function () {
 
-			// $("#answer1").text("new Answer1");
 
-			// $("#answer2").text("new Answer2");
-
-            // $.getJSON( "question.json", nextQuestion )
-		    // .done(function( json ) {
-			
-            // findQuestions(json)
-
-		    // })
+                let selectLiValue = $('#selectable  li.ui-selected');
 
 
 
-             let existingscore = $("#risk").text();    
+                let nextQuestion = (selectLiValue.attr("li-value"));
 
-             $("#risk").text(Math.abs(existingscore) + Math.abs(selectedScore));
+                let selectedScore = (selectLiValue.attr("li-score"));
 
-            $.getJSON( "question.json")
-            .done(function( json ) {
-                
-                findQuestions(json,nextQuestion)
 
-            })
-            .fail(function( jqxhr, textStatus, error ) {
-                var err = textStatus + ", " + error;
-                console.log( "Request Failed: " + err );
+                console.log(" next question id " + nextQuestion + " score for current " + selectedScore)
+
+                runEffect();
+
+
+
+
+
+                let existingscore = $("#risk").text();
+
+                $("#risk").text(Math.abs(existingscore) + Math.abs(selectedScore));
+
+                $.getJSON("question.json")
+                    .done(function (json) {
+
+                        findQuestions(json, nextQuestion)
+
+                    })
+                    .fail(function (jqxhr, textStatus, error) {
+                        var err = textStatus + ", " + error;
+                        console.log("Request Failed: " + err);
+                    });
+
+
+
+                return false;
             });
 
 
-			
-            return false;
-		});
+            $.getJSON("question.json")
+                .done(function (json) {
+
+                    findQuestions(json)
+
+                })
+                .fail(function (jqxhr, textStatus, error) {
+                    var err = textStatus + ", " + error;
+                    console.log("Request Failed: " + err);
+                });
+
+            function findQuestions(json, id = "start") {
+                console.log("JSON Data: " + JSON.stringify(json));
 
 
-		$.getJSON( "question.json")
-		.done(function( json ) {
-			
-            findQuestions(json)
-
-		})
-		.fail(function( jqxhr, textStatus, error ) {
-			var err = textStatus + ", " + error;
-			console.log( "Request Failed: " + err );
-		});
-		
-        function findQuestions(json, id = "start")
-        {
-            console.log( "JSON Data: " + JSON.stringify(json) );
-
-			// let returnedValue = json.questionnair.find(function(element)
-			// {
-			// 	return element["id"] === id;
-			// })	
+                let returnedValue = findInArray(json, id)
 
 
-                  
+                console.log("JSON Data selected: " + JSON.stringify(returnedValue));
+
+                $("#question").text(returnedValue.question);
+
+                $("#answer1").text(returnedValue.choice[0].answer);
+
+                $("#answer2").text(returnedValue.choice[1].answer);
+
+                //alert(returnedValue.choice[0].score);
+
+                //$("#answer1value").val(returnedValue.choice[0].score);
+
+                $('#selectable li').toArray()[0].setAttribute("li-value", returnedValue.choice[0].next);
+                $('#selectable li').toArray()[1].setAttribute("li-value", returnedValue.choice[1].next);
 
 
-            let returnedValue = findInArray(json,id)
+                $('#selectable li').toArray()[0].setAttribute("li-score", returnedValue.choice[0].score);
+                $('#selectable li').toArray()[1].setAttribute("li-score", returnedValue.choice[1].score);
 
 
-            console.log( "JSON Data selected: " + JSON.stringify(returnedValue));
+                if (id == "") {
+                    $("#button").text(" Completed ");
+                    $("#button").unbind('click');
+                }
 
-			$("#question").text(returnedValue.question);
-
-			$("#answer1").text(returnedValue.choice[0].answer);
-
-			$("#answer2").text(returnedValue.choice[1].answer);
-
-            //alert(returnedValue.choice[0].score);
-			
-			//$("#answer1value").val(returnedValue.choice[0].score);
-
-            $('#selectable li').toArray()[0].setAttribute("li-value",returnedValue.choice[0].next);
-            $('#selectable li').toArray()[1].setAttribute("li-value",returnedValue.choice[1].next);
+            }
 
 
-            $('#selectable li').toArray()[0].setAttribute("li-score",returnedValue.choice[0].score);
-            $('#selectable li').toArray()[1].setAttribute("li-score",returnedValue.choice[1].score);
+            function findInArray(array, element_to_find) {
 
 
-            //alert(test1)
-            //alert(test1[1])
-            //alert(test1[1].getAttribute())
+                console.log(" now finding for...  " + element_to_find)
 
+                let returnedValue = array.questionnair.find(function (element) {
+                    return element["id"] === element_to_find;
+                })
 
-            //alert(returnedValue.choice[1].score);
+                return returnedValue;
+            }
 
-			//$("#answer2value").val(returnedValue.choice[1].score);
-        }
+            $("#dialog").dialog();
 
-
-        function findInArray(array,element_to_find)
-        {
-
-
-            console.log(" now finding for...  " + element_to_find )
-
-            let returnedValue = array.questionnair.find(function(element)
-			{
-				return element["id"] === element_to_find;
-			})	
-
-            return returnedValue;
-        }
-
-        $( "#dialog" ).dialog();
-
-	});
+        });
     </script>
 
     <style>
@@ -225,46 +200,46 @@
 
 
         <div id="accordion">
-            <h3><label id="question" > Here is my questions</label></h3>
+            <h3><label id="question">Here is my questions</label></h3>
 
 
         </div>
         <ol id="selectable">
-			<li class="ui-widget-content" li-value="4" li-score="">
-				<div id="answer1"> Answer 1 </div>
-                
-			</li>
+            <li class="ui-widget-content" li-value="4" li-score="">
+                <div id="answer1"> Answer 1 </div>
+
+            </li>
             <li class="ui-widget-content" li-value="2" li-score="">
-				<div id="answer2"> Answer 2 </div>
-                
-			</li>
+                <div id="answer2"> Answer 2 </div>
+
+            </li>
         </ol>
 
-       
+
 
     </div>
 
     <div>
-	<button id="button" class="ui-button ui-widget ui-corner-all" >Next</button>
-	
+        <button id="button" class="ui-button ui-widget ui-corner-all">Next</button>
+
     </div>
-	<div>
-
-		
-
-	</div>
+    <div>
 
 
-    
+
+    </div>
+
+
+
     <div id="dialog" title="You risk score">
         <h2><label id="risk"></label></h2>
     </div>
 
-	
 
-	
 
-	
+
+
+
 
 </body>
 
