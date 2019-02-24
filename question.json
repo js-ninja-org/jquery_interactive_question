@@ -1,0 +1,239 @@
+{
+    "questionnair": [
+        {
+            "question": "What is the app you are building ?",
+            "rank": "1",
+            "id": "start",
+            "choice": [
+                {
+                    "answer": "I am building API",
+                    "next": "typeofchange",
+                    "score": "1"
+                },
+                {
+                    "answer": "I am building UI",
+                    "next": "typeofchange",
+                    "score": "2"
+                }
+            ]
+        },
+
+        {
+            "question": "Is this for a new micro service / existing that is not in use ?",
+            "rank": "1",
+            "id": "typeofchange",
+            "choice": [
+                {
+                    "answer": "Yes, changes are not yet live",
+                    "next": "",
+                    "score": "1"
+                },
+                {
+                    "answer": "This is real stuff",
+                    "next": "zone",
+                    "score": "2"
+                }
+            ]
+        },
+
+        {
+            "question": "What Zone you are deploying ?",
+            "rank": "1",
+            "id": "zone",
+            "choice": [
+                {
+                    "answer": "Deploying Zone 2",
+                    "next": "database",
+                    "score": "2"
+                },
+                {
+                    "answer": "Depoying to Zone 3",
+                    "next": "database",
+                    "score": "1"
+                }
+            ]
+        },
+        {
+            "question": "Do you have database migration ?",
+            "rank": "1",
+            "id": "database",
+            "choice": [
+                {
+                    "answer": "Yes",
+                    "next": "database-size",
+                    "score": "2"
+                },
+                {
+                    "answer": "No",
+                    "next": "consumers",
+                    "score": "1"
+                }
+            ]
+        },
+        {
+            "question": "What is your database size ?",
+            "rank": "1",
+            "id": "database-size",
+            "choice": [
+                {
+                    "answer": "BIG",
+                    "next": "consumers",
+                    "score": "5"
+                },
+                {
+                    "answer": "SMALL",
+                    "next": "consumers",
+                    "score": "1"
+                }
+            ]
+        }
+        ,
+        {
+            "question": "How many consumers do you have ?",
+            "rank": "1",
+            "id": "consumers",
+            "choice": [
+                {
+                    "answer": "More than 3+",
+                    "next": "usage",
+                    "score": "5"
+                },
+                {
+                    "answer": "Internal Domain Only",
+                    "next": "usage",
+                    "score": "1"
+                }
+            ]
+        }
+
+        ,
+        {
+            "question": "Does every consumer card application need your service ?",
+            "rank": "1",
+            "id": "usage",
+            "choice": [
+                {
+                    "answer": "Yes",
+                    "next": "backwardcompatibility",
+                    "score": "5"
+                },
+                {
+                    "answer": "No",
+                    "next": "backwardcompatibility",
+                    "score": "1"
+                }
+            ]
+        }
+        ,
+        {
+            "question": "Are you taking any fields out of API  ?",
+            "rank": "1",
+            "id": "backwardcompatibility",
+            "choice": [
+                {
+                    "answer": "No / Does not apply",
+                    "next": "newfunctionality",
+                    "score": "0"
+                },
+                {
+                    "answer": "Yes",
+                    "next": "consumer-notification",
+                    "score": "2"
+                }
+            ]
+        }
+        ,
+        {
+            "question": "Did you talk to consumers to ensure usages is removed ?",
+            "rank": "1",
+            "id": "consumer-notification",
+            "choice": [
+                {
+                    "answer": "No.",
+                    "next": "didnottalktoconsumers",
+                    "score": "0"
+                },
+                {
+                    "answer": "Yes",
+                    "next": "",
+                    "score": "2"
+                }
+            ]
+        }
+
+        ,
+        {
+            "question": "Go talk to the consumers and come back.",
+            "rank": "1",
+            "id": "didnottalktoconsumers",
+            "choice": [
+                {
+                    "answer": "Nothing to click.",
+                    "next": "",
+                    "score": "0"
+                },
+                {
+                    "answer": "Nothing to click",
+                    "next": "",
+                    "score": "0"
+                }
+            ]
+        }
+
+        ,
+        {
+            "question": "Does this change for a new funtionalty going live ?",
+            "rank": "1",
+            "id": "newfunctionality",
+            "choice": [
+                {
+                    "answer": "Yes.",
+                    "next": "rampup",
+                    "score": "2"
+                },
+                {
+                    "answer": "No",
+                    "next": "",
+                    "score": "-10"
+                }
+            ]
+        }
+
+        ,
+        {
+            "question": "Is there a ramp-up strategy ?",
+            "rank": "1",
+            "id": "rampup",
+            "choice": [
+                {
+                    "answer": "Yes.",
+                    "next": "rampup",
+                    "score": "1"
+                },
+                {
+                    "answer": "No",
+                    "next": "",
+                    "score": "5"
+                }
+            ]
+        }
+        ,
+        {
+            "question": "No More Questions",
+            "rank": "",
+            "id": "",
+            "choice": [
+                {
+                    "answer": "------",
+                    "next": "",
+                    "score": ""
+                },
+                {
+                    "answer": "------",
+                    "next": "",
+                    "score": ""
+                }
+            ]
+        }
+    ]
+}

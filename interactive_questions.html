@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+
+<html>
+
+
+
+<head>
+
+    <title>Intractive Questions</title>
+
+    <link rel="stylesheet" href="jquery-ui.min.css">
+    <script src="external/jquery/jquery.js"></script>
+    <script src="jquery-ui.min.js"></script>
+
+    <script>
+        $(function () {
+            $("#accordion").accordion();
+            $("#selectable").selectable();
+
+            function runEffect() {
+                // get effect type from
+                var selectedEffect = "explode";
+
+                // Most effect types need no options passed by default
+                var options = {};
+                // some effects have required parameters
+                if (selectedEffect === "scale") {
+                    options = { percent: 50 };
+                } else if (selectedEffect === "transfer") {
+                    options = { to: "#button", className: "ui-effects-transfer" };
+                } else if (selectedEffect === "size") {
+                    options = { to: { width: 200, height: 60 } };
+                }
+
+                // Run the effect
+                $("#effect").effect(selectedEffect, options, 500, callback);
+            };
+
+
+
+
+        });
+
+        $( "#button" ).on( "click", function() {
+
+            alert ("asas")
+            runEffect();
+            return false;
+        });
+    </script>
+
+    <style>
+        #feedback {
+            font-size: 1.4em;
+        }
+
+        #selectable .ui-selecting {
+            background: #FECA40;
+        }
+
+        #selectable .ui-selected {
+            background: #F39814;
+            color: white;
+        }
+
+        #selectable {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            width: 60%;
+        }
+
+        #selectable li {
+            margin: 3px;
+            padding: 0.4em;
+            font-size: 1.0em;
+            height: 18px;
+            font-family: "Helvetica Neue"
+        }
+    </style>
+
+</head>
+
+
+
+
+
+
+
+<body>
+
+
+    <div id="effect">
+
+
+        <div id="accordion">
+            <h3><label> Here is my questions</label></h3>
+
+
+        </div>
+        <ol id="selectable">
+            <li class="ui-widget-content">Answer 1</li>
+            <li class="ui-widget-content">Answer 2</li>
+        </ol>
+
+       
+
+    </div>
+
+
+    <button id="button"  class="ui-button ui-widget ui-corner-all" >Next</button>
+
+</body>
+
+
+
+
+</html>
